@@ -14,7 +14,8 @@ const MAP_PALETTE = [
 
 const TERRITORY_OWNERS = {
   'Alaska': 'United States of America',
-  'Hawaii': 'United States of America'
+  'Hawaii': 'United States of America',
+  'Spanish West Africa': 'Spain',
 }
 
 // Cache the base physical map so we only download it once per session
