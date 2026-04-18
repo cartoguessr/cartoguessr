@@ -6,21 +6,21 @@
  * exactly as they appear in the dataset.
  *
  * Each entry is one of:
- *   { power, label?, startYear?, endYear? }   — single colonial period
- *   [{ power, label?, startYear?, endYear? }]  — multiple periods (same name,
- *                                                different eras, e.g. Philippines)
+ * { power, label?, startYear?, endYear? }   — single colonial period
+ * [{ power, label?, startYear?, endYear? }]  — multiple periods (same name,
+ * different eras, e.g. Philippines)
  *
- *   power     Short name of the colonial power, used to build the default label
- *             "[power] colony" (e.g. "British" → "British colony")
- *   label     Overrides the default label entirely.  Use for protectorates,
- *             mandates, territories, dominions, etc.
- *   startYear Only show the label if feature.gwsyear >= startYear.
- *             Needed when the same cntry_name covers an independent period
- *             BEFORE colonization (e.g. Korea before Japanese annexation).
- *   endYear   Only show the label if feature.gweyear <= endYear.
- *             Needed when the same cntry_name covers both colonial and
- *             independent periods (e.g. India before and after 1947).
- *             Set to the gweyear of the LAST colonial-period feature.
+ * power     Short name of the colonial power, used to build the default label
+ * "[power] colony" (e.g. "British" → "British colony")
+ * label     Overrides the default label entirely.  Use for protectorates,
+ * mandates, territories, dominions, etc.
+ * startYear Only show the label if feature.gwsyear >= startYear.
+ * Needed when the same cntry_name covers an independent period
+ * BEFORE colonization (e.g. Korea before Japanese annexation).
+ * endYear   Only show the label if feature.gweyear <= endYear.
+ * Needed when the same cntry_name covers both colonial and
+ * independent periods (e.g. India before and after 1947).
+ * Set to the gweyear of the LAST colonial-period feature.
  *
  * Sources: GW state system, CShapes 2.0 docs, Wikipedia, COW colonial history.
  */
@@ -34,7 +34,6 @@ const STATUS = {
   'Aden':                     { power: 'British' },
   'Alaska':                   { power: 'American', label: 'U.S. territory' },
   'Bokhara':                  { power: 'Russian',  label: 'Russian protectorate' },
-  'Bosnia':                   { power: 'Austro-Hungarian' },
   'British Bechuanaland':     { power: 'British' },
   'British Cameroons':        { power: 'British' },
   'British Somaliland (Somaliland Republic)': { power: 'British' },
@@ -47,11 +46,9 @@ const STATUS = {
   'French Guyana':            { power: 'French',   label: 'French territory' },
   'French Polynesia':         { power: 'French',   label: 'French territory' },
   'French West Africa':       { power: 'French' },
-  'German Solomon Islands':   { power: 'German' },
   'German Togoland':          { power: 'German' },
   'Guadeloupe':               { power: 'French',   label: 'French territory' },
   'Hawaii':                   { power: 'American', label: 'U.S. territory' },
-  'Herzegovina':              { power: 'Austro-Hungarian' },
   'Inini':                    { power: 'French',   label: 'French territory' },
   'Italian Somaliland':       { power: 'Italian' },
   'Kamerun':                  { power: 'German' },
@@ -75,7 +72,6 @@ const STATUS = {
   'Sabah (North Borneo)':     { power: 'British' },
   'Sarawak':                  { power: 'British' },
   'Selangore':                { power: 'British', label: 'British protectorate' },
-  'Solomon Islands':          { power: 'British' },
   'South Australia':          { power: 'British' },
   'Southern Nigeria':         { power: 'British' },
   'Southern Sakhalin Island': { power: 'Japanese' },
@@ -102,6 +98,7 @@ const STATUS = {
   'Barbados':              { power: 'British',            endYear: 1966 },
   'Belize':                { power: 'British',            endYear: 1981 },
   'Benin':                 { power: 'French',             endYear: 1960 },
+  'Bosnia':                { power: 'Austro-Hungarian',   endYear: 1918, label: 'Austro-Hungarian Condominium' },
   'Bosnia-Herzegovina':    { power: 'Austro-Hungarian',   endYear: 1918 },
   'Botswana':              { power: 'British',            endYear: 1966, label: 'British protectorate' },
   'Brunei':                { power: 'British',            endYear: 1984, label: 'British protectorate' },
@@ -119,7 +116,7 @@ const STATUS = {
   'Cyprus':                { power: 'British',            endYear: 1960 },
   'Danzig':                { power: 'League of Nations',  endYear: 1939, label: 'Free City (League of Nations)' },
   'Djibouti':              { power: 'French',             endYear: 1977 },
-  'East Timor':            { power: 'Portuguese',         endYear: 1975 },
+  'East Timor':            { power: 'Portuguese',         endYear: 1975, label: 'Portuguese Timor' },
   'Equatorial Guinea':     { power: 'Spanish',            endYear: 1968 },
   'Eritrea':               { power: 'Italian',            endYear: 1941 },
   'Fiji':                  { power: 'British',            endYear: 1970 },
@@ -131,6 +128,7 @@ const STATUS = {
   'Guyana':                { power: 'British',            endYear: 1966 },
   'India':                 { power: 'British',            endYear: 1947 },
   'Indonesia':             { power: 'Dutch',              endYear: 1949 },
+  'Iran (Persia)':         { power: 'Allied',             startYear: 1941, endYear: 1946, label: 'Anglo-Soviet Occupation' },
   'Iraq':                  { power: 'British',            endYear: 1932, label: 'British mandate' },
   'Jamaica':               { power: 'British',            endYear: 1962 },
   'Jordan':                { power: 'British',            endYear: 1946, label: 'British mandate' },
@@ -156,8 +154,8 @@ const STATUS = {
   'Newfoundland':          { power: 'British',            endYear: 1949, label: 'British dominion' },
   'Niger':                 { power: 'French',             endYear: 1960 },
   'Nigeria':               { power: 'British',            endYear: 1960 },
+  'Orange Free State':     { power: 'British',            startYear: 1902, endYear: 1910, label: 'British Colony' },
   'Palestine':             { power: 'British',            endYear: 1948, label: 'British mandate' },
-  'Papua New Guinea':      { power: 'Australian',         endYear: 1975, label: 'Australian territory' },
   'Qatar':                 { power: 'British',            endYear: 1971, label: 'British protectorate' },
   'Senegal':               { power: 'French',             endYear: 1960 },
   'Sierra Leone':          { power: 'British',            endYear: 1961 },
@@ -170,6 +168,7 @@ const STATUS = {
   'Taiwan':                { power: 'Japanese',           endYear: 1945 },
   'Tanzania (Tanganyika)': { power: 'British',            endYear: 1961 },
   'Togo':                  { power: 'French',             endYear: 1960 },
+  'Transvaal':             { power: 'British',            startYear: 1902, endYear: 1910, label: 'British Colony' },
   'Trinidad and Tobago':   { power: 'British',            endYear: 1962 },
   'Tunisia':               { power: 'French',             endYear: 1956, label: 'French protectorate' },
   'Uganda':                { power: 'British',            endYear: 1962 },
@@ -188,6 +187,15 @@ const STATUS = {
     { power: 'Spanish',  endYear: 1898 },
     { power: 'American', startYear: 1898, label: 'U.S. territory' },
   ],
+  'Papua New Guinea': [
+    { power: 'Mixed',      endYear: 1901, label: 'British New Guinea (South) / German New Guinea (North)' },
+    { power: 'Mixed',      startYear: 1902, endYear: 1948, label: 'Australian Papua (South) / German/Mandate (North)' },
+    { power: 'Australian', startYear: 1949, endYear: 1975, label: 'Australian Territory' }
+  ],
+  'Solomon Islands': [
+    { power: 'German',     endYear: 1899, label: 'German New Guinea Administration' },
+    { power: 'British',    startYear: 1900, endYear: 1978, label: 'British Protectorate' }
+  ],
 }
 
 // ─── Public API ───────────────────────────────────────────────────────────────
@@ -197,7 +205,7 @@ const STATUS = {
  * or null if the territory is independent during this feature's time window.
  *
  * @param {Object} props - GeoJSON feature.properties from the CShapes output
- *   Must contain: cntry_name (string), gwsyear (number), gweyear (number)
+ * Must contain: cntry_name (string), gwsyear (number), gweyear (number)
  * @returns {string|null}
  */
 export function getColonialLabel(props) {

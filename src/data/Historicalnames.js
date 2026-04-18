@@ -95,8 +95,10 @@ const NAMES = {
   ],
 
   // ── Madagascar ───────────────────────────────────────────────────────────
+  // Pre-1958 it was just Madagascar (or French Madagascar).
   'Madagascar (Malagasy)': [
-    { endYear: 1974,   displayName: 'Malagasy Republic' },
+    { endYear: 1957,   displayName: 'Madagascar' },
+    { startYear: 1958, endYear: 1974,  displayName: 'Malagasy Republic' },
     { startYear: 1975, displayName: 'Madagascar' },
   ],
 
