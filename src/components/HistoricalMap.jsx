@@ -103,9 +103,6 @@ export default function HistoricalMap({ geojsonPath, year }) {
         })
 
         // ─── Per-country color overrides ──────────────────────────────────────
-        // First pass: collect which groupNames have a fixed override color.
-        // We key by groupName so territories (Alaska, Hawaii → "United States of
-        // America") automatically inherit the override of their parent country.
         const colorOverrides = {}
         geojson.features.forEach(feature => {
           const override = getCountryColor(feature.properties.cntry_name, year)
@@ -114,7 +111,6 @@ export default function HistoricalMap({ geojsonPath, year }) {
           }
         })
 
-        // Second pass: apply override to all features in each affected group.
         geojson.features.forEach((feature, i) => {
           const col = colorOverrides[feature.properties.groupName]
           if (col) {
@@ -196,7 +192,7 @@ export default function HistoricalMap({ geojsonPath, year }) {
       .attr('class', 'map-path')
       .attr('d', path)
       .attr('fill', 'none')
-      .attr('stroke', 'var(--border)')
+      .attr('stroke', 'var(--globe-lines, var(--border))')
       .attr('stroke-width', 0.5)
 
     const graticule = d3.geoGraticule()
@@ -207,7 +203,7 @@ export default function HistoricalMap({ geojsonPath, year }) {
       .attr('class', 'map-path')
       .attr('d', path)
       .attr('fill', 'none')
-      .attr('stroke', 'var(--border)')
+      .attr('stroke', 'var(--globe-lines, var(--border))')
       .attr('stroke-width', 0.5)
       .attr('stroke-opacity', 0.5) 
 
@@ -220,7 +216,6 @@ export default function HistoricalMap({ geojsonPath, year }) {
         .append('path')
         .attr('class', 'map-path base-land-path')
         .attr('d', path)
-        // CSS variable so dark mode can swap this without a JS re-render
         .attr('fill', 'var(--land-base)')
         .attr('stroke', 'none')  
     }
