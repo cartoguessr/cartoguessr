@@ -22,8 +22,6 @@ export default function HomePage() {
           existed — the closer your guess, the more points you score.
         </p>
 
-        // pages/HomePage.jsx
-
         <div className="home-actions">
           <button
             className="btn-primary"
