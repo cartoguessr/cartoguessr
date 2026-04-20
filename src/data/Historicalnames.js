@@ -53,7 +53,10 @@ const NAMES = {
   'Vietnam (Annam/Cochin China/Tonkin)': [
     { endYear: 1954,   displayName: 'French Indochina (Vietnam)' },
   ],
-  'Vietnam, Democratic Republic of': [{ displayName: 'North Vietnam' }],
+  'Vietnam, Democratic Republic of': [
+    { endYear: 1975,   displayName: 'North Vietnam' },
+    { startYear: 1976, displayName: 'Vietnam' },
+  ],
   'Vietnam, Republic of':            [{ displayName: 'South Vietnam' }],
 
   // ── Former Yugoslav republics ─────────────────────────────────────────────
